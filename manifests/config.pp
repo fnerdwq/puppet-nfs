@@ -29,9 +29,14 @@ class nfs::config {
     content => template('nfs/nfs-common.erb'),
   }
 
-  # configure lockd, fix_ports
+  # configure lockd
+  if str2bool($nfs::fix_ports) {
+    $ensure_modprobe = present
+  } else {
+    $ensure_modprobe = absent
+  }
   file {'/etc/modprobe.d/lockd.conf':
-    ensure  => $nfs::fix_ports,
+    ensure  => $ensure_modprobe,
     owner   => root,
     group   => root,
     mode    => '0644',

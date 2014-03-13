@@ -21,9 +21,14 @@ class nfs::server::config {
     content => template('nfs/nfs-kernel-server.erb'),
   }
 
-  # configure nfsd_callback_port, fix_ports
+  # configure nfsd_callback_port
+  if str2bool($nfs::fix_ports) {
+    $ensure_modprobe = present
+  } else {
+    $ensure_modprobe = absent
+  }
   file {'/etc/modprobe.d/nfs.conf':
-    ensure  => $nfs::fix_ports,
+    ensure  => $ensure_modprobe,
     owner   => root,
     group   => root,
     mode    => '0644',
