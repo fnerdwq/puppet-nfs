@@ -14,7 +14,7 @@ define nfs::export (
   concat::fragment{"exports: ${directory}":
     target  => '/etc/exports',
     order   => 10,
-    content => $exports_content,
+    content => "${directory} ${exports_content}\n",
   }
 
 #  exec {'reexportg filesystems':
