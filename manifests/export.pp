@@ -4,11 +4,11 @@ define nfs::export (
   $directory = $name,
 ) {
 
+  include nfs
+
   if ! $nfs::server {
     fail('NFS Server must be configured. Set $nfs::install_server=true')
   }
-
-  include nfs
 
   Class['nfs::server::config']
   -> Nfs::Export[$name]
