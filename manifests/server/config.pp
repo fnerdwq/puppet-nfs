@@ -13,12 +13,12 @@ class nfs::server::config {
   if $nfs::disable_version {
     $no_nfs_version = "--no-nfs-version ${nfs::disable_version}"
   }
-  file {'/etc/default/nfs-common':
+  file {'/etc/default/nfs-kernel-server':
     ensure  => present,
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('nfs/nfs-common.erb'),
+    content => template('nfs/nfs-kernel-server.erb'),
   }
 
   # configure nfsd_callback_port, fix_ports
