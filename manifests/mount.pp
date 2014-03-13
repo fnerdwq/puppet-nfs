@@ -1,9 +1,9 @@
 # creates nfs mounts
 define nfs::mount (
-  $ensure  = mounted,
-  $device  = undef,
-  $options = undef,
-  $remount = true,
+  $ensure   = mounted,
+  $device   = undef,
+  $options  = undef,
+  $remounts = true,
 ) {
 
   include nfs
@@ -14,14 +14,14 @@ define nfs::mount (
   file {$name: ensure => directory }
 
   mount {$name:
-    ensure  => $ensure,
-    device  => $device,
-    options => $options,
-    dump    => 0,
-    fstype  => nfs,
-    pass    => 0,
-    remount => $remount,
-    require => File[$name],
+    ensure   => $ensure,
+    device   => $device,
+    options  => $options,
+    dump     => 0,
+    fstype   => 'nfs',
+    pass     => 0,
+    remounts => $remounts,
+    require  => File[$name],
   }
 
 }
