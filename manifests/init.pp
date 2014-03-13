@@ -25,7 +25,12 @@ class nfs (
 
   if $install_server {
 
-    Class['nfs::server::install']
+    contain nfs::server::install
+    contain nfs::server::config
+    contain nfs::server::service
+
+    Class['nfs::service']
+    -> Class['nfs::server::install']
     -> Class['nfs::server::config']
     ~> Class['nfs::server::service']
 
