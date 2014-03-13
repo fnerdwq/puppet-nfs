@@ -18,7 +18,7 @@ class nfs::config {
     $need_gssd = 'no'
   }
 
-  $fix_ports           = $nfs::fix_ports
+  $fixed_ports         = $nfs::fixed_ports
   $statd_port          = "--port ${nfs::statd_port}"
   $statd_outgoing_port = "--outgoing-port ${nfs::statd_outgoing_port}"
   file {'/etc/default/nfs-common':
@@ -30,7 +30,7 @@ class nfs::config {
   }
 
   # configure lockd
-  if str2bool($nfs::fix_ports) {
+  if str2bool($nfs::fixed_ports) {
     $ensure_modprobe = present
   } else {
     $ensure_modprobe = absent

@@ -9,7 +9,7 @@ RPCNFSDPRIORITY=0
 # a fixed port here using the --port option. For more information, 
 # see rpc.mountd(8) or http://wiki.debian.org/SecuringNFS
 # To disable NFSv4 on the server, specify '--no-nfs-version 4' here
-<% if @fix_ports -%>
+<% if @fixed_ports -%>
 RPCMOUNTDOPTS="--manage-gids <%= [@mountd_port, @no_nfs_version].join(" ") %>"
 <% else -%>
 RPCMOUNTDOPTS="--manage-gids"

@@ -8,8 +8,8 @@ class nfs::server::config {
     $need_svcgssd = 'no'
   }
 
-  $fix_ports           = $nfs::fix_ports
-  $mountd_port         = "--port ${nfs::mountd_port}"
+  $fixed_ports = $nfs::fixed_ports
+  $mountd_port = "--port ${nfs::mountd_port}"
   if $nfs::disable_version {
     $no_nfs_version = "--no-nfs-version ${nfs::disable_version}"
   }
@@ -22,7 +22,7 @@ class nfs::server::config {
   }
 
   # configure nfsd_callback_port
-  if str2bool($nfs::fix_ports) {
+  if str2bool($nfs::fixed_ports) {
     $ensure_modprobe = present
   } else {
     $ensure_modprobe = absent

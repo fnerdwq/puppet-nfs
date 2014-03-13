@@ -1,6 +1,6 @@
 # handles nfs
 class nfs (
-  $fix_ports           = true,
+  $fixed_ports         = true,
   $statd_start         = true,
   $statd_port          = '32765',
   $statd_outgoing_port = '32766',
@@ -14,6 +14,8 @@ class nfs (
   $need_svcgssd        = false,
   $nfsd_callback_port  = '32764'
 ) {
+
+  #validation!
 
   contain nfs::install
   contain nfs::config
