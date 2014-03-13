@@ -6,7 +6,7 @@ define nfs::export (
 
   include nfs
 
-  if ! $nfs::server {
+  if ! $nfs::install_server {
     fail('NFS Server must be configured. Set $nfs::install_server=true')
   }
 
