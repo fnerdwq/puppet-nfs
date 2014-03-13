@@ -29,6 +29,24 @@ class nfs::config {
     content => template('nfs/nfs-common.erb'),
   }
 
+  # configure lockd, fix_ports
+  file {'/etc/modprobe.d/lockd.conf':
+    ensure  => $nfs::fix_ports,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => "# Managed by pupppet.
+options lockd nlm_udpport=${nfs::lockd_port} nlm_tcpport=${nfs::lockd_port}
+",
+    notify  => Exec['set lockd ports in /proc'],
+  }
+
+  exec {'set lockd ports in /proc':
+    command     => "echo ${nfs::lockd_port} > /proc/sys/fs/nfs/nlm_tcpport; echo ${nfs::lockd_port} > /proc/sys/fs/nfs/nlm_udpport",
+    refreshonly => true,
+    path        => ['/bin'],
+  }
+
   #/etc/services
 
 

@@ -11,7 +11,7 @@ NEED_STATD=<%= @need_statd %>
 #   this variable to a statd argument like: "--port 4000 --outgoing-port 4001".
 #   For more information, see rpc.statd(8) or http://wiki.debian.org/SecuringNFS
 <% if @fix_ports -%>
-STATDOPTS=<%= [@statd_port, @statd_outgoing_port].join(" ") %>
+STATDOPTS="<%= [@statd_port, @statd_outgoing_port].join(" ") %>"
 <% else -%>
 STATDOPTS=
 <% end -%>

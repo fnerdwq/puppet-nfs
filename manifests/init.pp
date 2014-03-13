@@ -2,10 +2,17 @@
 class nfs (
   $fix_ports           = true,
   $statd_start         = true,
-  $statd_port          = '2046',
-  $statd_outgoing_port = '2047',
+  $statd_port          = '32765',
+  $statd_outgoing_port = '32766',
   $idmapd_start        = false,
   $gssd_start          = false,
+  $lockd_port          = '32768',
+  # server related
+  $install_server      = false,
+  $mountd_port         = '32767',
+  $disable_version     = '4',
+  $need_svcgssd        = false,
+  $nfsd_callback_port  = '32764'
 ) {
 
   contain nfs::install
@@ -15,5 +22,13 @@ class nfs (
   Class['nfs::install']
   -> Class['nfs::config']
   ~> Class['nfs::service']
+
+  if $install_server {
+
+    Class['nfs::server::install']
+    -> Class['nfs::server::config']
+    ~> Class['nfs::server::service']
+
+  }
 
 }
