@@ -10,10 +10,6 @@ define nfs::export (
     fail('NFS Server must be configured. Set $nfs::install_server=true')
   }
 
-  Class['nfs::server::config']
-  -> Nfs::Export[$name]
-  -> Class['nfs::server::service']
-
   $exports_content = join(any2array($hosts),' ')
   concat::fragment{"exports: ${directory}":
     target  => '/etc/exports',
