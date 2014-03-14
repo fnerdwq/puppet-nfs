@@ -20,7 +20,7 @@ class nfs::server::export {
   exec {'reexport filesystems':
     command     => 'exportfs -r',
     refreshonly => true,
-    path        => ['/usr/bin'],
+    path        => ['/usr/sbin'],
   }
 
 }
