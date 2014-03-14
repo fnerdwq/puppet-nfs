@@ -92,7 +92,6 @@ options lockd nlm_udpport=${nfs::lockd_port} nlm_tcpport=${nfs::lockd_port}
       protocol     => 'udp',
       comment      => 'RPC lockd/nlockmgr'
     }
-
   }
 
   # quota?

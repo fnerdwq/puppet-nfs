@@ -37,7 +37,34 @@ options nfs callback_tcpport=${nfs::nfsd_callback_port}
 "
   }
 
-  #/etc/services
+  # set /etc/services entries
+  if $fixed_ports {
+    nfs::set_service {'rpc.mountd: tcp':
+      service_name => 'rpc.mountd',
+      port         => $nfs::mountd_port,
+      protocol     => 'tcp',
+      comment      => 'RPC mountd'
+    }
+    nfs::set_service {'rpc.mountd: udp':
+      service_name => 'rpc.mountd',
+      port         => $nfs::mountd_port,
+      protocol     => 'udp',
+      comment      => 'RPC mountd'
+    }
+
+    nfs::set_service {'rpc.nfs-cb: tcp':
+      service_name => 'rpc.nfs-cb',
+      port         => $nfs::nfsd_callback_port,
+      protocol     => 'tcp',
+      comment      => 'RPC nfs callback'
+    }
+    nfs::set_service {'rpc.nfs-cb: udp':
+      service_name => 'rpc.nfs-cb',
+      port         => $nfs::nfsd_callback_port,
+      protocol     => 'udp',
+      comment      => 'RPC nfs callback'
+    }
+  }
 
 
   # quota?
