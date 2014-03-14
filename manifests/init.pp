@@ -7,15 +7,16 @@ class nfs (
   $idmapd_start        = false,
   $gssd_start          = false,
   $lockd_port          = '32768',
-  # server related
   $install_server      = false,
   $mountd_port         = '32767',
   $disable_version     = '4',
   $need_svcgssd        = false,
-  $nfsd_callback_port  = '32764'
+  $nfsd_callback_port  = '32764',
+  $exports             = {},
 ) {
 
   #validation!
+  validate_hash($exports)
 
   contain nfs::install
   contain nfs::config
@@ -30,11 +31,13 @@ class nfs (
     contain nfs::server::install
     contain nfs::server::config
     contain nfs::server::service
+    contain nfs::server::export
 
     Class['nfs::service']
     -> Class['nfs::server::install']
     -> Class['nfs::server::config']
     ~> Class['nfs::server::service']
+    -> Class['nfs::server::export']
 
   }
 

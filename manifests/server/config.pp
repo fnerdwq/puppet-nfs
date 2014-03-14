@@ -71,17 +71,4 @@ options nfs callback_tcpport=${nfs::nfsd_callback_port}
   # rpc.quotad      32769/tcp                       # RPC quotad
   # rpc.quotad      32769/udp                       # RPC quotad
 
-  # prepare /etc/exports
-  concat {'/etc/exports':
-    owner => root,
-    group => root,
-    mode  => '0644',
-  }
-
-  concat::fragment{'exports_header':
-    target  => '/etc/exports',
-    order   => 01,
-    content => "# Managed by puppet.\n\n",
-  }
-
 }
