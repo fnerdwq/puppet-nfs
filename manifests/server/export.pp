@@ -1,6 +1,6 @@
 # exports a filesystem, buy only if server is configured (private)
-define nfs::server::export
-{
+class nfs::server::export {
+
   # prepare /etc/exports if not already done
   concat {'/etc/exports':
     owner  => root,
