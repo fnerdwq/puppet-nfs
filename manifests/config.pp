@@ -52,9 +52,48 @@ options lockd nlm_udpport=${nfs::lockd_port} nlm_tcpport=${nfs::lockd_port}
     path        => ['/bin'],
   }
 
-  #/etc/services
+  # set /etc/services entries
+  if $fixed_ports {
+    nfs::set_service {'rpc.statd: tcp':
+      service_name => 'rpc.statd',
+      port         => $nfs::statd_port,
+      protocol     => 'tcp',
+      comment      => 'RPC statd (listen)'
+    }
+    nfs::set_service {'rpc.statd: udp':
+      service_name => 'rpc.statd',
+      port         => $nfs::statd_port,
+      protocol     => 'udp',
+      comment      => 'RPC statd (listen)'
+    }
+    nfs::set_service {'rpc.statd-bc: tcp':
+      service_name => 'rpc.statd-bc',
+      port         => $nfs::statd_outgoing_port,
+      protocol     => 'tcp',
+      comment      => 'RPC statd (send)'
+    }
+    nfs::set_service {'rpc.statd-bc: udp':
+      service_name => 'rpc.statd-bc',
+      port         => $nfs::statd_outgoing_port,
+      protocol     => 'udp',
+      comment      => 'RPC statd (send)'
+    }
 
 
+    nfs::set_service {'rpc.lockd: tcp':
+      service_name => 'rpc.lockd',
+      port         => $nfs::lockd_port,
+      protocol     => 'tcp',
+      comment      => 'RPC lockd/nlockmgr'
+    }
+    nfs::set_service {'rpc.lockd: udp':
+      service_name => 'rpc.lockd',
+      port         => $nfs::lockd_port,
+      protocol     => 'udp',
+      comment      => 'RPC lockd/nlockmgr'
+    }
+
+  }
 
   # quota?
 
