@@ -67,7 +67,9 @@ options nfs callback_tcpport=${nfs::nfsd_callback_port}
   }
 
 
-  # quota?
+  # TODO quota: defeault fixed Port
+  # rpc.quotad      32769/tcp                       # RPC quotad
+  # rpc.quotad      32769/udp                       # RPC quotad
 
   # prepare /etc/exports
   concat {'/etc/exports':
