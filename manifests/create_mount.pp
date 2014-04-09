@@ -6,9 +6,9 @@ define nfs::create_mount (
   $remounts = true,
 ) {
 
-  file {$name: ensure => directory }
+  file { $name: ensure => directory }
 
-  mount {$name:
+  mount { $name:
     ensure   => $ensure,
     device   => $device,
     options  => $options,

@@ -2,8 +2,16 @@
 define nfs::server::exports_fragment (
   $hosts,
   $directory = $title,
+  $owner     = undef,
+  $group     = undef,
+  $mode      = undef,
 ) {
   validate_absolute_path($directory)
+
+  ensure_resource('file', $directory,
+    { 'owner' => $owner,
+      'group' => $group,
+      'mode'  => $mode, } )
 
   $exports_content = join(any2array($hosts),' ')
 
